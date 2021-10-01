@@ -1,5 +1,9 @@
 ## Changelog
 
+### [v8.2.1 - 2021-10-01](https://github.com/sevdimali/faker/compare/v8.2.0...v8.2.1)
+
+* Merge pull request #3 from sevdimali/revert-2-fix/master/az_locale. Thanks @sevdimali.
+
 ### [v8.2.0 - 2021-05-18](https://github.com/joke2k/faker/compare/v8.1.4...v8.2.0)
 
 *  Add ``city_name()`` and cities to ``support .city()`` for ``th_TH``. Thanks @bact.
