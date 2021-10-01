@@ -10,6 +10,7 @@ from validators import domain as validate_domain
 from validators import email as validate_email
 
 from faker.providers.internet import Provider as InternetProvider
+from faker.providers.internet.az_AZ import Provider as AzAzInternetProvider
 from faker.providers.internet.en_GB import Provider as EnGbInternetProvider
 from faker.providers.internet.es_ES import Provider as EsEsInternetProvider
 from faker.providers.internet.pl_PL import Provider as PlPlInternetProvider
@@ -235,9 +236,9 @@ class TestInternetProvider:
         subnets = [ip_network('10.0.0.0/8'), ip_network('11.0.0.0/8')]
         valid_weights = [1, 1]
         list_of_invalid_weights = [
-            [1, 2, 3],   # List size does not match subnet list size
+            [1, 2, 3],  # List size does not match subnet list size
             ['a', 'b'],  # List size matches, but elements are invalid
-            11,        # Not a list or valid iterable
+            11,  # Not a list or valid iterable
         ]
 
         with patch('faker.providers.internet.choices_distribution',
@@ -581,6 +582,27 @@ class TestArAa:
         email = faker.ascii_company_email()
         validate_email(email)
         assert email.split('@')[0] == 'asyl'
+
+
+class TestAzAz:
+    """Test az_AZ internet provider methods"""
+
+    @patch(
+        'faker.providers.internet.Provider.user_name',
+        lambda x: 'AğamüşviqƏlövsətov',
+    )
+    def test_ascii_free_email(self, faker):
+        email = faker.ascii_free_email()
+        validate_email(email)
+        assert email.split('@')[0] == 'agamushviqelovsetov'
+
+    def test_free_email_domain(self, faker):
+        domain = faker.free_email_domain()
+        assert domain in AzAzInternetProvider.free_email_domains
+
+    def test_tld(self, faker):
+        tld = faker.tld()
+        assert tld in AzAzInternetProvider.tlds
 
 
 class TestPtBr:
